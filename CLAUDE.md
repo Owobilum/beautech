@@ -9,7 +9,11 @@ An Nx monorepo (npm workspaces: `packages/*`, `apps/*`) under the `@owobilum/*` 
 - `packages/styles` (`@owobilum/styles`, Nx project `styles`): CSS-only, no build. `src/tokens.css` holds semantic CSS variables on `:root` (hex values sampled from Figma, which uses the Tailwind v3 palette — don't swap in v4's oklch palette, it renders more saturated); `src/theme.css` maps them to Tailwind utilities via `@theme inline`.
 - `packages/ui` (`@owobilum/ui`, Nx project `ui`): React 19 + Headless UI, Vite library build. Only `Button` exists. `src/styles.css` (exported as `@owobilum/ui/styles.css`) imports the tokens/theme and `@source`s the package so the consumer's Tailwind generates component classes; `src` ships in the tarball for that reason.
 
-Not started yet: Storybook, demo app, Playwright e2e, Changesets, Vercel, CI changes.
+- `apps/storybook` (Nx project `storybook`): Storybook 10 (react-vite) documenting `@owobilum/ui`; stories live here, not in `packages/ui`, so the published package has no Storybook dependency. `viteFinal` adds the Tailwind plugin and the `@owobilum/source` resolve condition (UI resolves to source, hot reload). `nx run storybook:test` runs every story as a Vitest browser-mode test in Playwright Chromium (needs `npx playwright install chromium` once): play-function interaction tests plus axe checks with `a11y.test: 'error'`, so contrast or labelling violations fail the run. Targets `storybook`/`build-storybook` are inferred by `@nx/storybook`.
+
+Not started yet: demo app, Playwright e2e, Changesets, Vercel (Storybook deploy is pending a Vercel account), CI changes.
+
+Text tokens must meet WCAG AA (story tests enforce it): use `muted-foreground` for secondary text, `disabled-foreground` only on disabled controls.
 
 ESLint is v10, newer than the peer ranges of `eslint-plugin-react`/`jsx-a11y`/`import`; root `package.json` `overrides` relax them, and `packages/ui/eslint.config.mjs` sets `settings.react.version` because the plugin's auto-detect crashes on ESLint 10.
 
