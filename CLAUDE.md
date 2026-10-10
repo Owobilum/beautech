@@ -22,7 +22,7 @@ npx nx affected -t build test lint           # only affected projects (CI-style)
 npx nx graph                                 # visualize the project graph
 
 npx nx release --dry-run                     # preview version/publish
-npx nx run @owobilum/source:local-registry   # start local verdaccio registry for testing publishes
+npx nx run beatech:local-registry            # start local verdaccio registry for testing publishes
 ```
 
 For a single package once one exists: `npx nx run <pkg>:test`, and pass vitest args through, e.g. `npx nx run <pkg>:test -- src/lib/foo.spec.ts` or `-- -t "test name"`.
@@ -33,7 +33,7 @@ For a single package once one exists: `npx nx run <pkg>:test`, and pass vitest a
 
 **Module boundaries.** `eslint.config.mjs` enforces `@nx/enforce-module-boundaries` via `depConstraints` keyed on `nx.tags` in each package's `package.json` (currently only `scope:shared` exists, for a future base/shared library). When adding packages, tag them (`scope:<name>`) and add a matching `depConstraints` entry restricting what that tag may import.
 
-**Release scope.** `nx.json`'s `release.projects` excludes `utils` and `@owobilum/source` (the workspace root) — new publishable packages will need to be included by default (only explicit exclusions are listed). `preVersionCommand` builds all projects first.
+**Release scope.** `nx.json`'s `release.projects` excludes `utils` and `beatech` (the workspace root) — new publishable packages will need to be included by default (only explicit exclusions are listed). `preVersionCommand` builds all projects first.
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
