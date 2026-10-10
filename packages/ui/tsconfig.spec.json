@@ -12,7 +12,8 @@
     "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["es2022", "dom", "dom.iterable"]
   },
   "include": [
     "package.json",
