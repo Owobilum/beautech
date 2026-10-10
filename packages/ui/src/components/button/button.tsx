@@ -39,7 +39,7 @@ const variants: Record<ButtonVariant, string> = {
   secondary:
     'border-border-strong bg-surface text-surface-foreground data-hover:border-border-hover data-hover:bg-muted data-hover:text-foreground data-active:bg-muted ' +
     'data-focus:border-primary data-focus:text-primary data-focus:ring-ring ' +
-    'data-disabled:border-border data-disabled:bg-muted data-disabled:text-muted-foreground',
+    'data-disabled:border-border data-disabled:bg-muted data-disabled:text-disabled-foreground',
   danger:
     'border-transparent bg-danger text-danger-foreground data-hover:bg-danger-hover data-active:bg-danger-hover data-focus:ring-ring-danger ' +
     'data-disabled:bg-danger-disabled data-disabled:text-danger-disabled-foreground',

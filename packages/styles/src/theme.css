@@ -12,6 +12,7 @@
   --color-surface-foreground: var(--surface-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-disabled-foreground: var(--disabled-foreground);
 
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);

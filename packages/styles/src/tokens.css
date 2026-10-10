@@ -16,7 +16,10 @@
   --surface: #ffffff;
   --surface-foreground: #334155; /* slate-700 */
   --muted: #f8fafc; /* slate-50 */
-  --muted-foreground: #94a3b8; /* slate-400 */
+  /* slate-500: the Figma's slate-400 is 2.45:1 on background, below WCAG AA. */
+  --muted-foreground: #64748b; /* slate-500 */
+  /* Disabled controls are exempt from contrast requirements (WCAG 1.4.3). */
+  --disabled-foreground: #94a3b8; /* slate-400 */
 
   /* Borders */
   --border: #e2e8f0; /* slate-200 */
