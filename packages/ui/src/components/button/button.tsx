@@ -1,5 +1,5 @@
 import { Button as HeadlessButton } from '@headlessui/react';
-import type { ComponentPropsWithRef, MouseEvent, ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { cn } from '../../lib/cn';
 
 export type ButtonVariant =
@@ -67,7 +67,6 @@ export function Button({
   trailingIcon,
   className,
   children,
-  onClick,
   ...props
 }: ButtonProps) {
   const iconClass = cn(
@@ -75,20 +74,12 @@ export function Button({
     sizes[size].icon,
   );
 
-  function handleClick(event: MouseEvent<HTMLButtonElement>) {
-    if (loading) {
-      // Also stops a submit button from submitting its form.
-      event.preventDefault();
-      return;
-    }
-    onClick?.(event);
-  }
-
   return (
     <HeadlessButton
       {...props}
       type={type}
-      onClick={handleClick}
+      // While loading the button stays focusable; with aria-disabled set,
+      // Headless UI swallows click/key handlers and prevents form submission.
       aria-busy={loading || undefined}
       aria-disabled={loading || props['aria-disabled'] || undefined}
       data-variant={variant}
