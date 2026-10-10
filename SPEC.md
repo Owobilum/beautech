@@ -87,7 +87,7 @@ The library should be framework-agnostic and consumable by React applications, i
 
 ---
 
-# 4. Repository Architecture
+# 4.Repository Architecture
 
 ```text
 component-library/
