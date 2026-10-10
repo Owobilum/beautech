@@ -1,0 +1,15 @@
+{
+  "name": "@owobilum/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@owobilum/ui": "*"
+  },
+  "nx": {
+    "name": "storybook",
+    "tags": [
+      "scope:storybook"
+    ]
+  }
+}

@@ -33,6 +33,14 @@ export default [
               sourceTag: 'scope:ui',
               onlyDependOnLibsWithTags: ['scope:shared', 'scope:styles'],
             },
+            {
+              sourceTag: 'scope:storybook',
+              onlyDependOnLibsWithTags: [
+                'scope:shared',
+                'scope:styles',
+                'scope:ui',
+              ],
+            },
           ],
         },
       ],

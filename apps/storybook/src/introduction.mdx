@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# @owobilum design system
+
+Accessible React components built on [Headless UI](https://headlessui.com) and
+styled with Tailwind CSS v4, with design tokens implemented from Figma.
+
+| Package            | Contents                                        |
+| ------------------ | ----------------------------------------------- |
+| `@owobilum/ui`     | React components                                |
+| `@owobilum/styles` | Design tokens and the Tailwind theme (CSS only) |
+
+## Getting started
+
+```bash
+npm install @owobilum/ui react react-dom tailwindcss
+```
+
+Import Tailwind and the library styles in your app's main stylesheet. This
+brings in the design tokens, the semantic utilities (`bg-primary`,
+`text-primary-foreground`, …) and tells Tailwind to generate the classes the
+components use.
+
+```css
+@import 'tailwindcss';
+@import '@owobilum/ui/styles.css';
+```
+
+The font stack expects [Inter](https://rsms.me/inter/); load it in your app.
+
+```tsx
+import { Button } from '@owobilum/ui';
+
+export function SaveButton() {
+  return <Button onClick={save}>Save</Button>;
+}
+```
+
+## Accessibility
+
+Every story is run as a test in a real browser with
+[axe](https://github.com/dequelabs/axe-core) accessibility checks, and
+interactive stories include keyboard interaction tests. See the
+**Accessibility** and **Interactions** panels on each story.

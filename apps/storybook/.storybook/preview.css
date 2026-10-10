@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@import '@owobilum/ui/styles.css';
+
+/* Classes used by the stories themselves (layout wrappers, swatches). */
+@source '../src';
+
+body {
+  @apply bg-background font-sans text-foreground antialiased;
+}
