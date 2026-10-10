@@ -1,0 +1,42 @@
+/*
+ * Semantic design tokens.
+ *
+ * Raw values live here, on :root, so that themes (e.g. dark mode) can be
+ * added later by redefining these variables without touching the Tailwind
+ * theme mapping in theme.css. Values are the Tailwind v4 palette, inlined so
+ * the tokens don't depend on the consumer keeping Tailwind's default colors.
+ */
+:root {
+  /* Surfaces & text */
+  --background: oklch(98.4% 0.003 247.858); /* slate-50 */
+  --foreground: oklch(20.8% 0.042 265.755); /* slate-900 */
+  --surface: oklch(100% 0 0); /* white */
+  --surface-foreground: oklch(37.2% 0.044 257.287); /* slate-700 */
+  --muted: oklch(98.4% 0.003 247.858); /* slate-50 */
+  --muted-foreground: oklch(70.4% 0.04 256.788); /* slate-400 */
+
+  /* Borders */
+  --border: oklch(92.9% 0.013 255.508); /* slate-200 */
+  --border-strong: oklch(86.9% 0.022 252.894); /* slate-300 */
+  --border-hover: oklch(70.4% 0.04 256.788); /* slate-400 */
+
+  /* Primary — indigo */
+  --primary: oklch(45.7% 0.24 277.023); /* indigo-700 */
+  --primary-hover: oklch(39.8% 0.195 277.366); /* indigo-800 */
+  --primary-foreground: oklch(100% 0 0);
+  --primary-muted: oklch(96.2% 0.018 272.314); /* indigo-50 */
+  --primary-disabled: oklch(87% 0.065 274.039); /* indigo-200 */
+  --primary-disabled-foreground: oklch(78.5% 0.115 274.713); /* indigo-300 */
+
+  /* Danger — rose */
+  --danger: oklch(58.6% 0.253 17.585); /* rose-600 */
+  --danger-hover: oklch(51.4% 0.222 16.935); /* rose-700 */
+  --danger-foreground: oklch(100% 0 0);
+  --danger-muted: oklch(96.9% 0.015 12.422); /* rose-50 */
+  --danger-disabled: oklch(94.1% 0.03 12.58); /* rose-100 */
+  --danger-disabled-foreground: oklch(81% 0.117 11.638); /* rose-300 */
+
+  /* Focus rings */
+  --ring: oklch(67.3% 0.182 276.935); /* indigo-400 */
+  --ring-danger: oklch(81% 0.117 11.638); /* rose-300 */
+}

@@ -1,0 +1,8 @@
+/*
+ * All-in-one entry: Tailwind plus the design-system theme.
+ * Apps that already import Tailwind should import ./tokens.css and
+ * ./theme.css instead.
+ */
+@import 'tailwindcss';
+@import './tokens.css';
+@import './theme.css';

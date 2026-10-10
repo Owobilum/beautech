@@ -1,0 +1,36 @@
+{
+  "name": "@owobilum/styles",
+  "version": "0.0.1",
+  "description": "Design tokens and Tailwind CSS v4 theme for the @owobilum design system.",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./theme.css": {
+      "style": "./src/theme.css",
+      "default": "./src/theme.css"
+    },
+    "./tokens.css": {
+      "style": "./src/tokens.css",
+      "default": "./src/tokens.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  },
+  "nx": {
+    "tags": [
+      "scope:styles"
+    ]
+  }
+}
