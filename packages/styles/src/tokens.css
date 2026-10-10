@@ -3,40 +3,43 @@
  *
  * Raw values live here, on :root, so that themes (e.g. dark mode) can be
  * added later by redefining these variables without touching the Tailwind
- * theme mapping in theme.css. Values are the Tailwind v4 palette, inlined so
- * the tokens don't depend on the consumer keeping Tailwind's default colors.
+ * theme mapping in theme.css.
+ *
+ * Values are sampled from the Figma design, which uses the Tailwind v3 sRGB
+ * palette (named in comments). Tailwind v4's oklch palette renders noticeably
+ * more saturated, so the hex values are kept to match the design.
  */
 :root {
   /* Surfaces & text */
-  --background: oklch(98.4% 0.003 247.858); /* slate-50 */
-  --foreground: oklch(20.8% 0.042 265.755); /* slate-900 */
-  --surface: oklch(100% 0 0); /* white */
-  --surface-foreground: oklch(37.2% 0.044 257.287); /* slate-700 */
-  --muted: oklch(98.4% 0.003 247.858); /* slate-50 */
-  --muted-foreground: oklch(70.4% 0.04 256.788); /* slate-400 */
+  --background: #f8fafc; /* slate-50 */
+  --foreground: #0f172a; /* slate-900 */
+  --surface: #ffffff;
+  --surface-foreground: #334155; /* slate-700 */
+  --muted: #f8fafc; /* slate-50 */
+  --muted-foreground: #94a3b8; /* slate-400 */
 
   /* Borders */
-  --border: oklch(92.9% 0.013 255.508); /* slate-200 */
-  --border-strong: oklch(86.9% 0.022 252.894); /* slate-300 */
-  --border-hover: oklch(70.4% 0.04 256.788); /* slate-400 */
+  --border: #e2e8f0; /* slate-200 */
+  --border-strong: #cbd5e1; /* slate-300 */
+  --border-hover: #94a3b8; /* slate-400 */
 
   /* Primary — indigo */
-  --primary: oklch(45.7% 0.24 277.023); /* indigo-700 */
-  --primary-hover: oklch(39.8% 0.195 277.366); /* indigo-800 */
-  --primary-foreground: oklch(100% 0 0);
-  --primary-muted: oklch(96.2% 0.018 272.314); /* indigo-50 */
-  --primary-disabled: oklch(87% 0.065 274.039); /* indigo-200 */
-  --primary-disabled-foreground: oklch(78.5% 0.115 274.713); /* indigo-300 */
+  --primary: #4338ca; /* indigo-700 */
+  --primary-hover: #3730a3; /* indigo-800 */
+  --primary-foreground: #ffffff;
+  --primary-muted: #eef2ff; /* indigo-50 */
+  --primary-disabled: #c7d2fe; /* indigo-200 */
+  --primary-disabled-foreground: #a5b4fc; /* indigo-300 */
 
   /* Danger — rose */
-  --danger: oklch(58.6% 0.253 17.585); /* rose-600 */
-  --danger-hover: oklch(51.4% 0.222 16.935); /* rose-700 */
-  --danger-foreground: oklch(100% 0 0);
-  --danger-muted: oklch(96.9% 0.015 12.422); /* rose-50 */
-  --danger-disabled: oklch(94.1% 0.03 12.58); /* rose-100 */
-  --danger-disabled-foreground: oklch(81% 0.117 11.638); /* rose-300 */
+  --danger: #e11d48; /* rose-600 */
+  --danger-hover: #be123c; /* rose-700 */
+  --danger-foreground: #ffffff;
+  --danger-muted: #fff1f2; /* rose-50 */
+  --danger-disabled: #fecdd3; /* rose-200 */
+  --danger-disabled-foreground: #fda4af; /* rose-300 */
 
   /* Focus rings */
-  --ring: oklch(67.3% 0.182 276.935); /* indigo-400 */
-  --ring-danger: oklch(81% 0.117 11.638); /* rose-300 */
+  --ring: #818cf8; /* indigo-400 */
+  --ring-danger: #fda4af; /* rose-300 */
 }
