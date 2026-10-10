@@ -1,0 +1,11 @@
+/*
+ * Consumer entry: design tokens, the Tailwind theme, and a @source so the
+ * consumer's Tailwind build generates the utilities these components use.
+ *
+ *   @import 'tailwindcss';
+ *   @import '@owobilum/ui/styles.css';
+ */
+@import '@owobilum/styles/tokens.css';
+@import '@owobilum/styles/theme.css';
+
+@source './';

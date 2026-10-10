@@ -52,7 +52,7 @@
     }
   ],
   "release": {
-    "projects": ["!beatech"],
+    "projects": ["*", "!beatech"],
     "version": {
       "preVersionCommand": "npx nx run-many -t build"
     }
@@ -62,5 +62,12 @@
       "dependsOn": ["^build"]
     }
   },
-  "analytics": false
+  "analytics": false,
+  "generators": {
+    "@nx/react": {
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
+  }
 }

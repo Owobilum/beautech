@@ -1,0 +1,50 @@
+{
+  "name": "@owobilum/ui",
+  "version": "0.0.1",
+  "description": "Accessible React components for the @owobilum design system, styled with Tailwind CSS v4.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "@owobilum/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": {
+      "style": "./src/styles.css",
+      "default": "./src/styles.css"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.*",
+    "!src/test-setup.ts",
+    "!**/*.tsbuildinfo"
+  ],
+  "dependencies": {
+    "@headlessui/react": "^2.2.10",
+    "@owobilum/styles": "0.0.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "nx": {
+    "name": "ui",
+    "tags": [
+      "scope:ui"
+    ]
+  }
+}
