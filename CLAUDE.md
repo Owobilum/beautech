@@ -4,7 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository overview
 
-An Nx monorepo (npm workspaces) under the `@owobilum/*` package scope. `packages/` is currently empty (just `.gitkeep`) — the example packages this template shipped with were deleted. `SPEC.md` describes a planned React component library (Storybook, Tailwind v4, Headless UI, apps/ui/styles, Playwright e2e, Changesets) to be built there, but that work hasn't started — don't assume any of it is implemented.
+An Nx monorepo (npm workspaces: `packages/*`, `apps/*`) under the `@owobilum/*` package scope, building the React component library described in `SPEC.md`. Implemented so far:
+
+- `packages/styles` (`@owobilum/styles`, Nx project `styles`): CSS-only, no build. `src/tokens.css` holds semantic CSS variables on `:root` (hex values sampled from Figma, which uses the Tailwind v3 palette — don't swap in v4's oklch palette, it renders more saturated); `src/theme.css` maps them to Tailwind utilities via `@theme inline`.
+- `packages/ui` (`@owobilum/ui`, Nx project `ui`): React 19 + Headless UI, Vite library build. Only `Button` exists. `src/styles.css` (exported as `@owobilum/ui/styles.css`) imports the tokens/theme and `@source`s the package so the consumer's Tailwind generates component classes; `src` ships in the tarball for that reason.
+
+Not started yet: Storybook, demo app, Playwright e2e, Changesets, Vercel, CI changes.
+
+ESLint is v10, newer than the peer ranges of `eslint-plugin-react`/`jsx-a11y`/`import`; root `package.json` `overrides` relax them, and `packages/ui/eslint.config.mjs` sets `settings.react.version` because the plugin's auto-detect crashes on ESLint 10.
 
 ## Commands
 
@@ -31,9 +38,9 @@ For a single package once one exists: `npx nx run <pkg>:test`, and pass vitest a
 
 **Scope & source resolution.** New packages should be named `@owobilum/<name>`. `tsconfig.base.json` sets `customConditions: ["@owobilum/source"]`; give each package's `exports` map an `"@owobilum/source"` condition pointing at `./src/index.ts` alongside the normal `import`/`default` condition pointing at `./dist/index.js`, so packages resolve each other straight to source inside the workspace (no build needed between dependent packages during dev) while external consumers only see compiled `dist`.
 
-**Module boundaries.** `eslint.config.mjs` enforces `@nx/enforce-module-boundaries` via `depConstraints` keyed on `nx.tags` in each package's `package.json` (currently only `scope:shared` exists, for a future base/shared library). When adding packages, tag them (`scope:<name>`) and add a matching `depConstraints` entry restricting what that tag may import.
+**Module boundaries.** `eslint.config.mjs` enforces `@nx/enforce-module-boundaries` via `depConstraints` keyed on `nx.tags` in each package's `package.json` (`scope:styles` may import nothing; `scope:ui` may import `scope:styles` and `scope:shared`, the latter reserved for a future shared library; the rule covers `.ts/.tsx/.js/.jsx`). When adding packages, tag them (`scope:<name>`) and add a matching `depConstraints` entry restricting what that tag may import.
 
-**Release scope.** `nx.json`'s `release.projects` excludes `utils` and `beatech` (the workspace root) — new publishable packages will need to be included by default (only explicit exclusions are listed). `preVersionCommand` builds all projects first.
+**Release scope.** `nx.json`'s `release.projects` is `["*", "!beatech"]` (everything except the workspace root). `preVersionCommand` builds all projects first.
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
