@@ -1,5 +1,16 @@
 # @owobilum/ui
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3](https://github.com/Owobilum/beautech/pull/3) [`b4ec3ce`](https://github.com/Owobilum/beautech/commit/b4ec3ce5ce22361fb0a93472feaa66f38686b7e2) Thanks [@Owobilum](https://github.com/Owobilum)! - Add `Input` (with password show/hide toggle), `Textarea` and `Select` components with label, helper text, error and disabled states.
+
+### Patch Changes
+
+- Updated dependencies [[`d2eb5fb`](https://github.com/Owobilum/beautech/commit/d2eb5fbcf71b85faccbe69b7adc5e2008a73c0cd)]:
+  - @owobilum/styles@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
