@@ -10,6 +10,18 @@
     "name": "storybook",
     "tags": [
       "scope:storybook"
-    ]
+    ],
+    "targets": {
+      "chromatic": {
+        "command": "chromatic --config-file chromatic.config.json",
+        "options": {
+          "cwd": "{projectRoot}"
+        },
+        "dependsOn": [
+          "build-storybook"
+        ],
+        "cache": false
+      }
+    }
   }
 }
