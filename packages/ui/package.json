@@ -22,7 +22,7 @@
     "accessibility"
   ],
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
   "main": "./dist/index.js",

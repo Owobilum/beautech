@@ -1,10 +1,12 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
   "baseBranch": "main",
-  "access": "public",
+  "access": "restricted",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "Owobilum/beautech" }
+    {
+      "repo": "Owobilum/beautech"
+    }
   ],
   "commit": false,
   "fixed": [],
@@ -12,5 +14,8 @@
   "ignore": [],
   "updateInternalDependencies": "patch",
   "changedFilePatterns": ["src/**", "package.json"],
-  "privatePackages": { "version": false, "tag": false }
+  "privatePackages": {
+    "version": false,
+    "tag": false
+  }
 }

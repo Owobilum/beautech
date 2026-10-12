@@ -15,23 +15,27 @@ jobs:
     permissions:
       contents: write # version commit, tags, GitHub releases
       pull-requests: write # open/update the "Version Packages" PR
-      id-token: write # npm trusted publishing (OIDC) and provenance
+      packages: write # publish to GitHub Packages
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
+      # Writes an .npmrc mapping @owobilum to GitHub Packages, authenticated
+      # with NODE_AUTH_TOKEN.
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
-          registry-url: https://registry.npmjs.org
+          registry-url: https://npm.pkg.github.com
+          scope: '@owobilum'
 
       - run: npm ci
 
       # With pending changesets: opens/updates the "Version Packages" PR.
       # When that PR is merged (no changesets left): builds and publishes any
-      # package version not yet on npm, then tags and creates GitHub releases.
+      # package version not yet in GitHub Packages, then tags and creates
+      # GitHub releases.
       - uses: changesets/action@v2
         with:
           version-script: npm run version-packages
@@ -41,8 +45,4 @@ jobs:
         env:
           # Read by @changesets/changelog-github to link PRs and authors.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # npm prefers trusted publishing (OIDC). NPM_TOKEN is only needed
-          # for the very first publish, before trusted publishing can be
-          # configured on the packages; delete the secret afterwards.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

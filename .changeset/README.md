@@ -12,4 +12,4 @@ npx changeset
 
 On merge to `main`, the release workflow collects pending changesets into a
 "Version Packages" PR (version bumps + CHANGELOG entries). Merging that PR
-publishes the new versions to npm.
+publishes the new versions to GitHub Packages.
