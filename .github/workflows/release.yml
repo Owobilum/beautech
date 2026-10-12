@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+# Never run two releases at once.
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Version or publish packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # version commit, tags, GitHub releases
+      pull-requests: write # open/update the "Version Packages" PR
+      id-token: write # npm trusted publishing (OIDC) and provenance
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      # With pending changesets: opens/updates the "Version Packages" PR.
+      # When that PR is merged (no changesets left): builds and publishes any
+      # package version not yet on npm, then tags and creates GitHub releases.
+      - uses: changesets/action@v2
+        with:
+          version-script: npm run version-packages
+          publish-script: npm run release
+          commit-message: 'chore: version packages'
+          pr-title: 'chore: version packages'
+        env:
+          # Read by @changesets/changelog-github to link PRs and authors.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # npm prefers trusted publishing (OIDC). NPM_TOKEN is only needed
+          # for the very first publish, before trusted publishing can be
+          # configured on the packages; delete the secret afterwards.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

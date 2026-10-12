@@ -52,3 +52,6 @@ vitest.config.*.timestamp*
 .nx/migrate-runs
 
 storybook-static
+
+# Written by nx run beatech:local-registry (location: project)
+.npmrc

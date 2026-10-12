@@ -46,6 +46,7 @@
   },
   "files": [
     "dist",
+    "CHANGELOG.md",
     "src",
     "!src/**/*.test.*",
     "!src/test-setup.ts",
