@@ -13,6 +13,8 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-disabled-foreground: var(--disabled-foreground);
+  --color-disabled: var(--disabled);
+  --color-placeholder: var(--placeholder);
 
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
@@ -27,6 +29,7 @@
 
   --color-danger: var(--danger);
   --color-danger-hover: var(--danger-hover);
+  --color-danger-strong: var(--danger-strong);
   --color-danger-foreground: var(--danger-foreground);
   --color-danger-muted: var(--danger-muted);
   --color-danger-disabled: var(--danger-disabled);
