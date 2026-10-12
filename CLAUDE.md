@@ -13,7 +13,9 @@ An Nx monorepo (npm workspaces: `packages/*`, `apps/*`) under the `@owobilum/*` 
 
 Node: `.nvmrc` pins 24 to match CI (Chromatic requires >=22).
 
-Not started yet: demo app, Playwright e2e, Changesets, Vercel (Storybook deploy is pending a Vercel account), CI changes.
+Not started yet: demo app, Playwright e2e, Changesets, Vercel (Storybook deploy is pending a Vercel account).
+
+CI (`.github/workflows/ci.yml`, no Nx Cloud): `checks` runs `nx format:check` and `nx affected -t lint typecheck test build build-storybook` (base from `nrwl/nx-set-shas`, falling back to the pre-push commit), installing Playwright Chromium for story tests; `chromatic` runs `nx run storybook:chromatic` with the `CHROMATIC_PROJECT_TOKEN` repo secret. Release workflow (Changesets) not yet added.
 
 Text tokens must meet WCAG AA (story tests enforce it): use `muted-foreground` for secondary text, `disabled-foreground` only on disabled controls.
 
