@@ -55,6 +55,54 @@ import { Button } from '@owobilum/ui';
 All native `<button>` attributes and `ref` are forwarded. `type` defaults to
 `"button"`. Icon-only buttons need an `aria-label`.
 
+### Input and Textarea
+
+```tsx
+import { Input, Textarea } from '@owobilum/ui';
+
+<Input label="Company name" description="Enter your registered company name." />
+<Input label="Subdomain" error="Only lowercase letters and hyphens are allowed." />
+<Input label="Password" type="password" />
+<Textarea label="Description" description="Max 500 characters." />
+```
+
+| Prop                                   | Type                                                     |
+| -------------------------------------- | -------------------------------------------------------- |
+| `label`                                | `ReactNode` (associated with the control)                |
+| `description`                          | `ReactNode` (helper text, linked via `aria-describedby`) |
+| `error`                                | `ReactNode` (sets `aria-invalid`, replaces description)  |
+| `className`                            | `string`, applied to the field wrapper                   |
+| `inputClassName` / `textareaClassName` | `string`, applied to the control                         |
+
+All other native attributes and `ref` go to the `<input>` / `<textarea>`.
+`type="password"` adds a show/hide toggle. Without a `label`, pass
+`aria-label`.
+
+### Select
+
+```tsx
+import { Select } from '@owobilum/ui';
+
+<Select
+  label="Member role"
+  options={[
+    {
+      value: 'admin',
+      label: 'Admin',
+      description: 'Can manage members and billing',
+    },
+    { value: 'member', label: 'Member', description: 'Can view and comment' },
+  ]}
+  value={role}
+  onChange={setRole}
+/>;
+```
+
+Single-select dropdown on Headless UI's Listbox (arrow keys, type-ahead,
+Escape). Props: `options` (`{ value, label, description?, disabled? }[]`),
+`value` / `defaultValue` / `onChange`, `placeholder`, `name` (submits with a
+form), `disabled`, plus `label`, `description` and `error` as above.
+
 ## Development
 
 ```bash
