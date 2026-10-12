@@ -20,6 +20,9 @@
   --muted-foreground: #64748b; /* slate-500 */
   /* Disabled controls are exempt from contrast requirements (WCAG 1.4.3). */
   --disabled-foreground: #94a3b8; /* slate-400 */
+  --disabled: #f1f5f9; /* slate-100: disabled form control fill */
+  /* Placeholder text is exempt from contrast checks; it never replaces a label. */
+  --placeholder: #94a3b8; /* slate-400 */
 
   /* Borders */
   --border: #e2e8f0; /* slate-200 */
@@ -37,6 +40,8 @@
   /* Danger — rose */
   --danger: #e11d48; /* rose-600 */
   --danger-hover: #be123c; /* rose-700 */
+  /* Error text: rose-600 is 4.49:1 on background, below AA; rose-700 is 6:1. */
+  --danger-strong: #be123c; /* rose-700 */
   --danger-foreground: #ffffff;
   --danger-muted: #fff1f2; /* rose-50 */
   --danger-disabled: #fecdd3; /* rose-200 */
