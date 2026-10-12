@@ -1,5 +1,11 @@
 # @owobilum/styles
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3](https://github.com/Owobilum/beautech/pull/3) [`d2eb5fb`](https://github.com/Owobilum/beautech/commit/d2eb5fbcf71b85faccbe69b7adc5e2008a73c0cd) Thanks [@Owobilum](https://github.com/Owobilum)! - Add `disabled`, `placeholder` and `danger-strong` color tokens for form controls.
+
 ## 0.1.0
 
 ### Minor Changes
