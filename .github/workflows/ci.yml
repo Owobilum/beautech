@@ -7,34 +7,78 @@ on:
   pull_request:
 
 permissions:
-  actions: read
+  actions: read # nx-set-shas looks up the last successful run on main
   contents: read
 
+# Cancel superseded runs on the same branch / PR.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  main:
+  checks:
+    name: Lint, typecheck, test, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
+          fetch-depth: 0 # full history for `nx affected`
           filter: tree:0
-          fetch-depth: 0
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/docs/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
-          node-version: 24
-          cache: 'npm'
+          node-version-file: .nvmrc
+          cache: npm
 
       - run: npm ci
 
-      # Prepend any command with "nx record --" to record its logs to Nx Cloud
-      - run: npx nx record -- npx nx format:check --base="remotes/origin/main"
-      - run: npx nx run-many -t lint test build typecheck e2e
-      # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/docs/features/ci-features/self-healing-ci
-      - run: npx nx fix-ci
-        if: always()
+      # Sets NX_BASE/NX_HEAD: the PR base, or the last successful run on main.
+      # With no successful run yet, compare against main before this push
+      # (rather than HEAD~1), so every pushed commit is checked.
+      - uses: nrwl/nx-set-shas@v5
+        with:
+          fallback-sha: ${{ github.event.before }}
+
+      - run: npx nx format:check --base="$NX_BASE" --head="$NX_HEAD"
+
+      # Chromium for the Storybook story tests (Vitest browser mode).
+      - name: Get Playwright version
+        id: playwright
+        run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - run: npx nx affected -t lint typecheck test build build-storybook
+
+  chromatic:
+    name: Visual regression (Chromatic)
+    runs-on: ubuntu-latest
+    # Secrets aren't available to PRs from forks.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # Chromatic uses git history to find baselines
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Visual changes don't fail this job (exitZeroOnChanges); they are
+      # reviewed via Chromatic's "UI Tests" check. main auto-accepts.
+      - run: npx nx run storybook:chromatic
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
