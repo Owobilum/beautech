@@ -13,9 +13,9 @@ An Nx monorepo (npm workspaces: `packages/*`, `apps/*`) under the `@owobilum/*` 
 
 Node: `.nvmrc` pins 24 to match CI (Chromatic requires >=22).
 
-Not started yet: demo app, Playwright e2e, Changesets, Vercel (Storybook deploy is pending a Vercel account).
+Not started yet: demo app, Playwright e2e, Vercel (Storybook deploy is pending a Vercel account).
 
-CI (`.github/workflows/ci.yml`, no Nx Cloud): `checks` runs `nx format:check` and `nx affected -t lint typecheck test build build-storybook` (base from `nrwl/nx-set-shas`, falling back to the pre-push commit), installing Playwright Chromium for story tests; `chromatic` runs `nx run storybook:chromatic` with the `CHROMATIC_PROJECT_TOKEN` repo secret. Release workflow (Changesets) not yet added.
+CI (`.github/workflows/ci.yml`, no Nx Cloud): `checks` runs `nx format:check` and `nx affected -t lint typecheck test build build-storybook` (base from `nrwl/nx-set-shas`, falling back to the pre-push commit), installing Playwright Chromium for story tests; `chromatic` runs `nx run storybook:chromatic` with the `CHROMATIC_PROJECT_TOKEN` repo secret.
 
 Text tokens must meet WCAG AA (story tests enforce it): use `muted-foreground` for secondary text, `disabled-foreground` only on disabled controls.
 
@@ -36,8 +36,8 @@ npx nx run-many -t typecheck                 # typecheck all packages
 npx nx affected -t build test lint           # only affected projects (CI-style)
 npx nx graph                                 # visualize the project graph
 
-npx nx release --dry-run                     # preview version/publish
-npx nx run beatech:local-registry            # start local verdaccio registry for testing publishes
+npx changeset                                # add a changeset (needed in PRs that change a published package)
+npx nx run beatech:local-registry            # local verdaccio registry (writes the repo's gitignored .npmrc, not ~/.npmrc)
 ```
 
 For a single package once one exists: `npx nx run <pkg>:test`, and pass vitest args through, e.g. `npx nx run <pkg>:test -- src/lib/foo.spec.ts` or `-- -t "test name"`.
@@ -48,7 +48,7 @@ For a single package once one exists: `npx nx run <pkg>:test`, and pass vitest a
 
 **Module boundaries.** `eslint.config.mjs` enforces `@nx/enforce-module-boundaries` via `depConstraints` keyed on `nx.tags` in each package's `package.json` (`scope:styles` may import nothing; `scope:ui` may import `scope:styles` and `scope:shared`, the latter reserved for a future shared library; the rule covers `.ts/.tsx/.js/.jsx`). When adding packages, tag them (`scope:<name>`) and add a matching `depConstraints` entry restricting what that tag may import.
 
-**Release scope.** `nx.json`'s `release.projects` is `["*", "!beatech"]` (everything except the workspace root). `preVersionCommand` builds all projects first.
+**Releases (Changesets).** `@owobilum/ui` and `@owobilum/styles` are versioned independently (`.changeset/config.json`; only `src/**` and `package.json` changes count). PRs that change them need a changeset (CI runs `changeset status`). On `main`, `.github/workflows/release.yml` (changesets/action) opens a "chore: version packages" PR (`npm run version-packages` = `changeset version` + lockfile sync); merging it runs `npm run release` (build, `changeset publish`) to **GitHub Packages** (`publishConfig.registry` = `https://npm.pkg.github.com`, auth via the workflow's `GITHUB_TOKEN`; packages inherit the repo's visibility, and consumers need an `.npmrc` with a `read:packages` token — see `packages/ui/README.md`). The bot's PR is created with `GITHUB_TOKEN`, so CI doesn't run on it automatically: close and reopen it to trigger checks. Changesets 3 needs Node >=22.11 and its `init`/`add` commands are interactive; write changeset files by hand when scripting. To rehearse a release against Verdaccio, temporarily remove `publishConfig.registry` from both packages first — it overrides `npm_config_registry`, so otherwise the rehearsal publishes to GitHub Packages for real. Then `npm run version-packages`, `npm_config_registry=http://localhost:4873/ npm run release`, and revert everything (including the git tags it creates).
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->

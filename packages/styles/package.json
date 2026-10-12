@@ -3,8 +3,29 @@
   "version": "0.0.1",
   "description": "Design tokens and Tailwind CSS v4 theme for the @owobilum design system.",
   "license": "MIT",
+  "author": "Lawrence Ikpebe",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Owobilum/beautech.git",
+    "directory": "packages/styles"
+  },
+  "homepage": "https://github.com/Owobilum/beautech/tree/main/packages/styles#readme",
+  "bugs": {
+    "url": "https://github.com/Owobilum/beautech/issues"
+  },
+  "keywords": [
+    "design-tokens",
+    "tailwindcss",
+    "theme",
+    "css",
+    "design-system"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "files": [
+    "CHANGELOG.md",
     "src"
   ],
   "sideEffects": [

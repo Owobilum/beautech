@@ -1,6 +1,8 @@
 # @owobilum/styles
 
 Design tokens and the Tailwind CSS v4 theme for the `@owobilum` design system.
+Usually installed through `@owobilum/ui`; see its README for registry setup
+(GitHub Packages).
 
 ```css
 /* app.css */

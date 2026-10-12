@@ -14,6 +14,18 @@ styled with Tailwind CSS v4, with design tokens implemented from Figma.
 
 ## Getting started
 
+The packages are published to [GitHub Packages](https://github.com/Owobilum/beautech/packages),
+which requires authentication to install. Add an `.npmrc` to your app:
+
+```ini
+@owobilum:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+`GITHUB_TOKEN` must be a GitHub token with the `read:packages` scope (a
+personal access token locally; in another repo's GitHub Actions, grant that
+repo access in the package settings and use the workflow's `GITHUB_TOKEN`).
+
 ```bash
 npm install @owobilum/ui react react-dom tailwindcss
 ```

@@ -41,6 +41,13 @@ jobs:
 
       - run: npx nx format:check --base="$NX_BASE" --head="$NX_HEAD"
 
+      # PRs that change a published package must include a changeset
+      # (`npx changeset`). Skipped on the bot's "Version Packages" PR, which
+      # consumes the changesets.
+      - name: Check for changesets
+        if: github.event_name == 'pull_request' && github.head_ref != 'changeset-release/main'
+        run: npx changeset status --since=origin/main
+
       # Chromium for the Storybook story tests (Vitest browser mode).
       - name: Get Playwright version
         id: playwright
