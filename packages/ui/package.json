@@ -3,6 +3,27 @@
   "version": "0.0.1",
   "description": "Accessible React components for the @owobilum design system, styled with Tailwind CSS v4.",
   "license": "MIT",
+  "author": "Lawrence Ikpebe",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Owobilum/beautech.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/Owobilum/beautech/tree/main/packages/ui#readme",
+  "bugs": {
+    "url": "https://github.com/Owobilum/beautech/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "design-system",
+    "tailwindcss",
+    "headlessui",
+    "accessibility"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -32,7 +53,7 @@
   ],
   "dependencies": {
     "@headlessui/react": "^2.2.10",
-    "@owobilum/styles": "0.0.1",
+    "@owobilum/styles": "^0.0.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.7.0"
   },
