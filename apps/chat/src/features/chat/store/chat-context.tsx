@@ -33,6 +33,7 @@ export function useChatSelector<T>(
 ): T {
   const store = useChatStore();
   const cache = useRef<{ state: ChatState; value: T } | null>(null);
+  const serverCache = useRef<{ value: T } | null>(null);
 
   const getSnapshot = () => {
     const state = store.getState();
@@ -47,5 +48,14 @@ export function useChatSelector<T>(
     return value;
   };
 
-  return useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
+  // Hydration must reproduce the server HTML, which was rendered from the
+  // initial state. Returning the live state here would let an update that
+  // lands mid-hydration (e.g. persisted state loading) render a different
+  // tree on the client, shifting useId values and other markup.
+  const getServerSnapshot = () => {
+    serverCache.current ??= { value: selector(store.getInitialState()) };
+    return serverCache.current.value;
+  };
+
+  return useSyncExternalStore(store.subscribe, getSnapshot, getServerSnapshot);
 }

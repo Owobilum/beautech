@@ -7,6 +7,11 @@ import type { ChatState } from '../domain/types';
 
 export type ChatStore = {
   getState(): ChatState;
+  /**
+   * The state the store was created with: what the server rendered, so
+   * hydration must render it too (see useChatSelector).
+   */
+  getInitialState(): ChatState;
   dispatch(action: ChatAction): void;
   subscribe(listener: () => void): () => void;
 };
@@ -24,6 +29,7 @@ export function createChatStore(
 
   return {
     getState: () => state,
+    getInitialState: () => initialState,
     dispatch(action) {
       const next = chatReducer(state, action);
       if (next === state) return;
