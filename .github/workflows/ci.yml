@@ -67,7 +67,30 @@ jobs:
         run: npx playwright install-deps chromium
 
       # e2e runs the chat app against its mock AI provider: no API key needed.
-      - run: npx nx affected -t lint typecheck test build build-storybook e2e
+      - run: npx nx affected -t lint typecheck build build-storybook e2e
+
+      # Separate run so --coverage reaches only the test targets. Vitest
+      # thresholds (in each project's config) fail this step on a regression.
+      - run: npx nx affected -t test --coverage
+
+      # Only affected projects produce a report; codecov.yml carries the
+      # others forward. Uploads don't fail CI (no token on fork PRs).
+      - name: Upload ui coverage
+        if: ${{ !cancelled() && hashFiles('packages/ui/test-output/vitest/coverage/lcov.info') != '' }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: packages/ui/test-output/vitest/coverage/lcov.info
+          disable_search: true
+          flags: ui
+      - name: Upload chat coverage
+        if: ${{ !cancelled() && hashFiles('apps/chat/test-output/vitest/coverage/lcov.info') != '' }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: apps/chat/test-output/vitest/coverage/lcov.info
+          disable_search: true
+          flags: chat
 
   chromatic:
     name: Visual regression (Chromatic)
