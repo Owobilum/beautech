@@ -1,9 +1,10 @@
 import { Button as HeadlessButton } from '@headlessui/react';
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { cn } from '../../lib/cn';
+import { Spinner } from '../spinner/spinner';
 
 export type ButtonVariant =
-  'primary' | 'secondary' | 'danger' | 'danger-outline' | 'ghost';
+  'primary' | 'secondary' | 'danger' | 'danger-outline' | 'ghost' | 'subtle';
 
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -28,11 +29,11 @@ export type ButtonProps = Omit<ComponentPropsWithRef<'button'>, 'type'> & {
 // Headless UI exposes interaction state as data attributes (data-hover,
 // data-focus for keyboard focus only, data-active, data-disabled), which keeps
 // the visual states declarative and consistent with assistive-tech state.
-const base =
+export const buttonBase =
   'inline-flex cursor-pointer items-center justify-center border font-sans font-semibold whitespace-nowrap select-none transition-colors outline-none ' +
   'data-focus:ring-2 data-focus:ring-offset-2 data-disabled:cursor-not-allowed data-loading:cursor-wait';
 
-const variants: Record<ButtonVariant, string> = {
+export const buttonVariants: Record<ButtonVariant, string> = {
   primary:
     'border-transparent bg-primary text-primary-foreground data-hover:bg-primary-hover data-active:bg-primary-hover data-focus:ring-ring ' +
     'data-disabled:bg-primary-disabled data-disabled:text-primary-disabled-foreground',
@@ -49,6 +50,10 @@ const variants: Record<ButtonVariant, string> = {
   ghost:
     'border-transparent bg-transparent text-primary data-hover:bg-primary-muted data-active:bg-primary-muted data-focus:ring-ring ' +
     'data-disabled:bg-transparent data-disabled:text-primary-disabled-foreground',
+  // Low-emphasis neutral action, e.g. toolbar and per-item icon buttons.
+  subtle:
+    'border-transparent bg-transparent text-muted-foreground data-hover:bg-muted data-hover:text-foreground data-active:bg-muted data-focus:text-foreground data-focus:ring-ring ' +
+    'data-disabled:bg-transparent data-disabled:text-disabled-foreground',
 };
 
 const sizes: Record<ButtonSize, { button: string; icon: string }> = {
@@ -85,7 +90,12 @@ export function Button({
       data-variant={variant}
       data-size={size}
       data-loading={loading || undefined}
-      className={cn(base, variants[variant], sizes[size].button, className)}
+      className={cn(
+        buttonBase,
+        buttonVariants[variant],
+        sizes[size].button,
+        className,
+      )}
     >
       {leadingIcon && (
         <span aria-hidden="true" className={iconClass}>
@@ -103,32 +113,5 @@ export function Button({
         )
       )}
     </HeadlessButton>
-  );
-}
-
-function Spinner({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      data-slot="spinner"
-      className={cn('animate-spin', className)}
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        stroke="currentColor"
-        strokeWidth="3"
-        className="opacity-30"
-      />
-      <path
-        d="M21 12a9 9 0 0 0-9-9"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

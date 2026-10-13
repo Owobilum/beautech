@@ -1,4 +1,15 @@
+export * from './components/alert';
 export * from './components/button';
+export * from './components/chat-message';
+export * from './components/code-block';
+export * from './components/copy-button';
+export * from './components/drawer';
+export * from './components/empty-state';
+export * from './components/icon-button';
 export * from './components/input';
+export * from './components/message-composer';
+export * from './components/nav-list';
 export * from './components/select';
+export * from './components/spinner';
 export type { FieldProps } from './components/field/field';
+export * from './lib/icons';
