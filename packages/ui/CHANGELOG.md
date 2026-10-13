@@ -1,5 +1,16 @@
 # @owobilum/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- [#5](https://github.com/Owobilum/beautech/pull/5) [`8f26791`](https://github.com/Owobilum/beautech/commit/8f26791af3d223d900a63f9538f7a57f4dba4326) Thanks [@Owobilum](https://github.com/Owobilum)! - Add chat, navigation and feedback components: `IconButton`, `CopyButton`, `Spinner`, `Drawer`, `ChatMessage`, `MessageComposer`, `NavList`/`NavListItem`, `EmptyState`, `Alert` and `CodeBlock`. Add a `subtle` Button variant, `autoResize`/`maxRows` on `Textarea`, and export the icon set.
+
+### Patch Changes
+
+- Updated dependencies [[`067c188`](https://github.com/Owobilum/beautech/commit/067c188a352059224495c5064fc3de34b6bed77a)]:
+  - @owobilum/styles@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
