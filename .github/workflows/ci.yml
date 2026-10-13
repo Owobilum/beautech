@@ -48,7 +48,8 @@ jobs:
         if: github.event_name == 'pull_request' && github.head_ref != 'changeset-release/main'
         run: npx changeset status --since=origin/main
 
-      # Chromium for the Storybook story tests (Vitest browser mode).
+      # Chromium for the Storybook story tests (Vitest browser mode) and the
+      # chat app's Playwright e2e tests.
       - name: Get Playwright version
         id: playwright
         run: echo "version=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
@@ -65,7 +66,8 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
-      - run: npx nx affected -t lint typecheck test build build-storybook
+      # e2e runs the chat app against its mock AI provider: no API key needed.
+      - run: npx nx affected -t lint typecheck test build build-storybook e2e
 
   chromatic:
     name: Visual regression (Chromatic)

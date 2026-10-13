@@ -1,0 +1,26 @@
+{
+  "name": "@owobilum/chat-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "nx": {
+    "name": "chat-e2e",
+    "tags": [
+      "scope:chat-e2e"
+    ],
+    "implicitDependencies": [
+      "chat"
+    ],
+    "targets": {
+      "e2e": {
+        "dependsOn": [
+          {
+            "projects": [
+              "chat"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
+  }
+}

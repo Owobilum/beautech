@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/storybook"
+    },
+    {
+      "path": "./apps/chat-e2e"
     }
   ],
   "compilerOptions": {}

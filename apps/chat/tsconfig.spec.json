@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client",
+      "node",
+      "vitest"
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "composite": false,
+    "declarationMap": false,
+    "tsBuildInfoFile": "out-tsc/tsconfig.spec.tsbuildinfo",
+    "incremental": true,
+    "emitDeclarationOnly": false
+  },
+  "include": ["vitest.config.mts", "src/**/*.ts", "src/**/*.tsx", "index.d.ts"]
+}
