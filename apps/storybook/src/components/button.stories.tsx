@@ -18,7 +18,14 @@ const meta = {
   argTypes: {
     variant: {
       control: 'inline-radio',
-      options: ['primary', 'secondary', 'danger', 'danger-outline', 'ghost'],
+      options: [
+        'primary',
+        'secondary',
+        'danger',
+        'danger-outline',
+        'ghost',
+        'subtle',
+      ],
     },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] },
     leadingIcon: { control: false },
@@ -54,8 +61,17 @@ export const Variants: Story = {
       <Button {...args} variant="ghost">
         Ghost
       </Button>
+      <Button {...args} variant="subtle">
+        Subtle
+      </Button>
     </div>
   ),
+};
+
+/** Every variant on the dark theme (tokens switch; components don't change). */
+export const DarkTheme: Story = {
+  ...Variants,
+  globals: { theme: 'dark' },
 };
 
 export const Sizes: Story = {

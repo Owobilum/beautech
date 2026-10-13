@@ -1,0 +1,153 @@
+@import 'tailwindcss';
+@import '@owobilum/ui/styles.css';
+
+@source '../';
+
+body {
+  @apply bg-background font-sans text-foreground antialiased;
+}
+
+/*
+ * Syntax highlighting colors (highlight.js classes from rehype-highlight).
+ * Chosen for at least 4.5:1 on --code-background in each theme.
+ */
+:root {
+  --hl-comment: #475569; /* slate-600 */
+  --hl-keyword: #7e22ce; /* purple-700 */
+  --hl-string: #15803d; /* green-700 */
+  --hl-number: #b45309; /* amber-700 */
+  --hl-title: #1d4ed8; /* blue-700 */
+  --hl-attr: #0e7490; /* cyan-700 */
+}
+:root[data-theme='dark'] {
+  --hl-comment: #94a3b8;
+  --hl-keyword: #c084fc;
+  --hl-string: #4ade80;
+  --hl-number: #fbbf24;
+  --hl-title: #60a5fa;
+  --hl-attr: #22d3ee;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --hl-comment: #94a3b8;
+    --hl-keyword: #c084fc;
+    --hl-string: #4ade80;
+    --hl-number: #fbbf24;
+    --hl-title: #60a5fa;
+    --hl-attr: #22d3ee;
+  }
+}
+
+@layer components {
+  .hljs-comment,
+  .hljs-quote {
+    color: var(--hl-comment);
+    font-style: italic;
+  }
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-built_in,
+  .hljs-type,
+  .hljs-literal {
+    color: var(--hl-keyword);
+  }
+  .hljs-string,
+  .hljs-regexp,
+  .hljs-addition {
+    color: var(--hl-string);
+  }
+  .hljs-number,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: var(--hl-number);
+  }
+  .hljs-title,
+  .hljs-section,
+  .hljs-function .hljs-title {
+    color: var(--hl-title);
+  }
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-variable,
+  .hljs-property,
+  .hljs-meta {
+    color: var(--hl-attr);
+  }
+  .hljs-deletion {
+    color: var(--danger-strong);
+  }
+
+  /* Typography for rendered Markdown (assistant messages). */
+  .markdown {
+    @apply min-w-0 text-sm leading-relaxed text-foreground;
+    overflow-wrap: anywhere;
+  }
+  .markdown > :first-child {
+    @apply mt-0;
+  }
+  .markdown > :last-child {
+    @apply mb-0;
+  }
+  .markdown p,
+  .markdown ul,
+  .markdown ol,
+  .markdown blockquote {
+    @apply my-3;
+  }
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4 {
+    @apply mt-5 mb-2 font-semibold text-foreground;
+  }
+  .markdown h1 {
+    @apply text-xl;
+  }
+  .markdown h2 {
+    @apply text-lg;
+  }
+  .markdown h3,
+  .markdown h4 {
+    @apply text-base;
+  }
+  .markdown ul {
+    @apply list-disc pl-6;
+  }
+  .markdown ol {
+    @apply list-decimal pl-6;
+  }
+  .markdown li {
+    @apply my-1;
+  }
+  .markdown li > ul,
+  .markdown li > ol {
+    @apply my-1;
+  }
+  .markdown a {
+    @apply font-medium text-primary underline underline-offset-2 hover:text-primary-hover focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none;
+  }
+  .markdown blockquote {
+    @apply border-l-2 border-border-strong pl-4 text-surface-foreground;
+  }
+  .markdown hr {
+    @apply my-6 border-border;
+  }
+  .markdown :not(pre) > code {
+    @apply rounded bg-code-background px-1.5 py-0.5 font-mono text-[0.85em] text-code-foreground;
+  }
+  .markdown .table-scroll {
+    @apply my-4 overflow-x-auto rounded-lg border border-border focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none;
+  }
+  .markdown table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .markdown th {
+    @apply border-b border-border bg-muted px-3 py-2 font-semibold;
+  }
+  .markdown td {
+    @apply border-b border-border px-3 py-2 align-top;
+  }
+  .markdown tr:last-child td {
+    @apply border-b-0;
+  }
+}

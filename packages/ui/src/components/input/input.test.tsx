@@ -150,3 +150,20 @@ describe('Textarea', () => {
     expect(textarea).toHaveAccessibleDescription('Required.');
   });
 });
+
+describe('Textarea autoResize', () => {
+  it('disables manual resizing and sizes itself to its content', () => {
+    render(<Textarea label="Notes" autoResize maxRows={4} defaultValue="Hi" />);
+    const box = screen.getByRole('textbox', { name: 'Notes' });
+
+    expect(box).toHaveClass('resize-none');
+    expect(box.style.height).toMatch(/px$/);
+  });
+
+  it('still forwards its ref', () => {
+    const ref = createRef<HTMLTextAreaElement>();
+    render(<Textarea label="Notes" autoResize ref={ref} />);
+
+    expect(ref.current).toBe(screen.getByRole('textbox'));
+  });
+});

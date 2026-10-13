@@ -1,9 +1,8 @@
 /*
  * Semantic design tokens.
  *
- * Raw values live here, on :root, so that themes (e.g. dark mode) can be
- * added later by redefining these variables without touching the Tailwind
- * theme mapping in theme.css.
+ * Raw values live here, on :root; the dark theme below redefines the same
+ * variables, so the Tailwind theme mapping in theme.css never changes.
  *
  * Values are sampled from the Figma design, which uses the Tailwind v3 sRGB
  * palette (named in comments). Tailwind v4's oklch palette renders noticeably
@@ -50,4 +49,100 @@
   /* Focus rings */
   --ring: #818cf8; /* indigo-400 */
   --ring-danger: #fda4af; /* rose-300 */
+
+  /* Code blocks */
+  --code-background: #f1f5f9; /* slate-100 */
+  --code-foreground: #0f172a; /* slate-900 */
+
+  color-scheme: light;
+}
+
+/*
+ * Dark theme. Follows the OS preference by default; an app can force a theme
+ * with data-theme="dark" | "light" on <html>. The two blocks must stay
+ * identical (CSS can't share a declaration block between an at-rule and a
+ * selector).
+ *
+ * Dark primary/danger are lighter shades (indigo-400, rose-400) with dark
+ * text on top: the light theme's indigo-700/rose-600 fall below AA as text on
+ * dark surfaces, and white on indigo-500/rose-500 is below AA too.
+ */
+:root[data-theme='dark'] {
+  --background: #020617; /* slate-950 */
+  --foreground: #f1f5f9; /* slate-100 */
+  --surface: #0f172a; /* slate-900 */
+  --surface-foreground: #cbd5e1; /* slate-300 */
+  --muted: #1e293b; /* slate-800 */
+  --muted-foreground: #94a3b8; /* slate-400: 5.7:1 on muted */
+  --disabled-foreground: #64748b; /* slate-500 */
+  --disabled: #1e293b; /* slate-800 */
+  --placeholder: #64748b; /* slate-500 */
+
+  --border: #334155; /* slate-700 */
+  --border-strong: #475569; /* slate-600 */
+  --border-hover: #64748b; /* slate-500 */
+
+  --primary: #818cf8; /* indigo-400 */
+  --primary-hover: #a5b4fc; /* indigo-300 */
+  --primary-foreground: #020617; /* slate-950 */
+  --primary-muted: #1e1b4b; /* indigo-950 */
+  --primary-disabled: #312e81; /* indigo-900 */
+  --primary-disabled-foreground: #6366f1; /* indigo-500 */
+
+  --danger: #fb7185; /* rose-400 */
+  --danger-hover: #fda4af; /* rose-300 */
+  --danger-strong: #fb7185; /* rose-400 */
+  --danger-foreground: #020617; /* slate-950 */
+  --danger-muted: #4c0519; /* rose-950 */
+  --danger-disabled: #881337; /* rose-900 */
+  --danger-disabled-foreground: #be123c; /* rose-700 */
+
+  --ring: #6366f1; /* indigo-500 */
+  --ring-danger: #e11d48; /* rose-600 */
+
+  --code-background: #020617; /* slate-950 */
+  --code-foreground: #e2e8f0; /* slate-200 */
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --background: #020617; /* slate-950 */
+    --foreground: #f1f5f9; /* slate-100 */
+    --surface: #0f172a; /* slate-900 */
+    --surface-foreground: #cbd5e1; /* slate-300 */
+    --muted: #1e293b; /* slate-800 */
+    --muted-foreground: #94a3b8; /* slate-400 */
+    --disabled-foreground: #64748b; /* slate-500 */
+    --disabled: #1e293b; /* slate-800 */
+    --placeholder: #64748b; /* slate-500 */
+
+    --border: #334155; /* slate-700 */
+    --border-strong: #475569; /* slate-600 */
+    --border-hover: #64748b; /* slate-500 */
+
+    --primary: #818cf8; /* indigo-400 */
+    --primary-hover: #a5b4fc; /* indigo-300 */
+    --primary-foreground: #020617; /* slate-950 */
+    --primary-muted: #1e1b4b; /* indigo-950 */
+    --primary-disabled: #312e81; /* indigo-900 */
+    --primary-disabled-foreground: #6366f1; /* indigo-500 */
+
+    --danger: #fb7185; /* rose-400 */
+    --danger-hover: #fda4af; /* rose-300 */
+    --danger-strong: #fb7185; /* rose-400 */
+    --danger-foreground: #020617; /* slate-950 */
+    --danger-muted: #4c0519; /* rose-950 */
+    --danger-disabled: #881337; /* rose-900 */
+    --danger-disabled-foreground: #be123c; /* rose-700 */
+
+    --ring: #6366f1; /* indigo-500 */
+    --ring-danger: #e11d48; /* rose-600 */
+
+    --code-background: #020617; /* slate-950 */
+    --code-foreground: #e2e8f0; /* slate-200 */
+
+    color-scheme: dark;
+  }
 }

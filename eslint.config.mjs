@@ -10,6 +10,7 @@ export default [
       '**/build',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/test-output',
     ],
   },
   {
@@ -32,6 +33,18 @@ export default [
             {
               sourceTag: 'scope:ui',
               onlyDependOnLibsWithTags: ['scope:shared', 'scope:styles'],
+            },
+            {
+              sourceTag: 'scope:chat',
+              onlyDependOnLibsWithTags: [
+                'scope:shared',
+                'scope:styles',
+                'scope:ui',
+              ],
+            },
+            {
+              sourceTag: 'scope:chat-e2e',
+              onlyDependOnLibsWithTags: ['scope:chat'],
             },
             {
               sourceTag: 'scope:storybook',

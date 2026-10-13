@@ -2,9 +2,16 @@ import {
   Input as HeadlessInput,
   Textarea as HeadlessTextarea,
 } from '@headlessui/react';
-import { useState, type ComponentPropsWithRef } from 'react';
+import {
+  useMemo,
+  useState,
+  type ComponentPropsWithRef,
+  type InputEvent,
+} from 'react';
 import { cn } from '../../lib/cn';
 import { EyeIcon, EyeOffIcon } from '../../lib/icons';
+import { mergeRefs } from '../../lib/merge-refs';
+import { useAutoResize } from '../../lib/use-auto-resize';
 import { controlStyles, FormField, type FieldProps } from '../field/field';
 
 export type InputProps = Omit<ComponentPropsWithRef<'input'>, 'className'> &
@@ -86,6 +93,13 @@ export type TextareaProps = Omit<
     className?: string;
     /** Applied to the `<textarea>` element itself. */
     textareaClassName?: string;
+    /**
+     * Grow with the content instead of showing a scrollbar, starting at
+     * `rows` lines. Disables manual resizing.
+     */
+    autoResize?: boolean;
+    /** With `autoResize`, stop growing (and scroll) after this many lines. */
+    maxRows?: number;
   };
 
 /** Multi-line text input with the same field anatomy as `Input`. */
@@ -97,8 +111,24 @@ export function Textarea({
   className,
   textareaClassName,
   rows = 3,
+  autoResize = false,
+  maxRows,
+  ref,
+  onInput,
   ...props
 }: TextareaProps) {
+  const { ref: innerRef, resize } = useAutoResize({
+    enabled: autoResize,
+    maxRows,
+    value: props.value,
+  });
+  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [innerRef, ref]);
+
+  function handleInput(event: InputEvent<HTMLTextAreaElement>) {
+    resize();
+    onInput?.(event);
+  }
+
   return (
     <FormField
       label={label}
@@ -109,9 +139,15 @@ export function Textarea({
     >
       <HeadlessTextarea
         {...props}
+        ref={mergedRef}
+        onInput={handleInput}
         rows={rows}
         invalid={Boolean(error) || undefined}
-        className={cn(controlStyles, 'resize-y', textareaClassName)}
+        className={cn(
+          controlStyles,
+          autoResize ? 'resize-none' : 'resize-y',
+          textareaClassName,
+        )}
       />
     </FormField>
   );

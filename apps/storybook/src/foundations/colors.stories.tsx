@@ -47,6 +47,13 @@ const groups: { title: string; tokens: Token[] }[] = [
       { name: 'danger-disabled-foreground', usage: 'Disabled text' },
     ],
   },
+  {
+    title: 'Code',
+    tokens: [
+      { name: 'code-background', usage: 'Code block fill' },
+      { name: 'code-foreground', usage: 'Code block text' },
+    ],
+  },
 ];
 
 function Swatch({ name, usage }: Token) {
@@ -100,3 +107,7 @@ const meta = {
 export default meta;
 
 export const Colors: StoryObj<typeof meta> = {};
+
+export const DarkColors: StoryObj<typeof meta> = {
+  globals: { theme: 'dark' },
+};
