@@ -37,6 +37,24 @@
 
   --color-ring: var(--ring);
   --color-ring-danger: var(--ring-danger);
+
+  --color-code-background: var(--code-background);
+  --color-code-foreground: var(--code-foreground);
+}
+
+/*
+ * `dark:` utilities, matching the dark-theme selectors in tokens.css. Most
+ * components don't need them: tokens already switch with the theme.
+ */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:not(:where([data-theme='light'], [data-theme='light'] *)) {
+      @slot;
+    }
+  }
 }
 
 @theme {
