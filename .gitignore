@@ -68,3 +68,7 @@ next-env.d.ts
 # Local environment (secrets)
 .env
 .env*.local
+
+# Vercel build output (vercel.json storybook service)
+vercel-output
+.vercel

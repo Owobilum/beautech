@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "chat": {
+      "root": "apps/chat",
+      "framework": "nextjs",
+      "installCommand": "cd ../.. && npm ci",
+      "buildCommand": "cd ../.. && npx nx run chat:build"
+    },
+    "storybook": {
+      "root": "apps/storybook",
+      "framework": "storybook",
+      "installCommand": "cd ../.. && npm ci",
+      "buildCommand": "cd ../.. && npx nx run storybook:build-storybook --output-dir=vercel-output/storybook",
+      "outputDirectory": "vercel-output"
+    }
+  },
+  "redirects": [
+    { "source": "/storybook", "destination": "/storybook/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/storybook/(.*)", "destination": { "service": "storybook" } },
+    { "source": "/(.*)", "destination": { "service": "chat" } }
+  ]
+}
