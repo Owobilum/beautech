@@ -18,7 +18,7 @@ Node: `.nvmrc` pins 24 to match CI (Chromatic requires >=22).
 
 Not started yet: Vercel (Storybook and chat deploys are pending a Vercel account).
 
-CI (`.github/workflows/ci.yml`, no Nx Cloud): `checks` runs `nx format:check` and `nx affected -t lint typecheck test build build-storybook e2e` (base from `nrwl/nx-set-shas`, falling back to the pre-push commit), installing Playwright Chromium for story tests and chat e2e; `chromatic` runs `nx run storybook:chromatic` with the `CHROMATIC_PROJECT_TOKEN` repo secret.
+CI (`.github/workflows/ci.yml`, no Nx Cloud): `checks` runs `nx format:check` and `nx affected -t lint typecheck build build-storybook e2e` then `nx affected -t test --coverage` (base from `nrwl/nx-set-shas`, falling back to the pre-push commit), installing Playwright Chromium for story tests and chat e2e, and uploads the `ui`/`chat` lcov reports to Codecov (flags `ui`/`chat`, carried forward when unaffected; `codecov.yml`; needs the `CODECOV_TOKEN` repo secret). Coverage is off by default; with `--coverage`, `ui` and `chat` enforce Vitest `coverage.thresholds` (set a few points under current numbers — raise them as coverage improves, don't lower them to pass) and write `test-output/vitest/coverage` (HTML + repo-relative `lcov.info`); `chromatic` runs `nx run storybook:chromatic` with the `CHROMATIC_PROJECT_TOKEN` repo secret.
 
 Text tokens must meet WCAG AA (story tests enforce it): use `muted-foreground` for secondary text, `disabled-foreground` only on disabled controls, `danger-strong` (not `danger`) for error text, and `placeholder` only for native `placeholder` attributes (axe doesn't check those; placeholder-like text rendered as real content must use `muted-foreground`).
 
@@ -35,6 +35,7 @@ npx nx run-many -t build                     # build all packages
 npx nx run-many -t test                      # test all packages
 npx nx run-many -t lint                      # lint all packages
 npx nx run-many -t typecheck                 # typecheck all packages
+npx nx run-many -t test -p ui chat --coverage  # coverage + thresholds (HTML in <project>/test-output/vitest/coverage)
 
 npx nx affected -t build test lint           # only affected projects (CI-style)
 npx nx graph                                 # visualize the project graph

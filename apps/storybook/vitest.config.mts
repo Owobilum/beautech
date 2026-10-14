@@ -21,5 +21,10 @@ export default defineConfig({
       provider: playwright(),
       instances: [{ browser: 'chromium' }],
     },
+    // CI's `nx affected -t test --coverage` reaches this project too; keep
+    // the (unreported) output in the gitignored test-output folder.
+    coverage: {
+      reportsDirectory: './test-output/vitest/coverage',
+    },
   },
 });

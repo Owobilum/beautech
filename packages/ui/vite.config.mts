@@ -47,9 +47,25 @@ export default defineConfig(() => ({
     setupFiles: ['./src/test-setup.ts'],
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
+    // Off by default (a filtered run would fail the thresholds); CI runs
+    // `nx affected -t test --coverage` and uploads lcov to Codecov.
     coverage: {
       reportsDirectory: './test-output/vitest/coverage',
       provider: 'v8' as const,
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/**/index.ts',
+        'src/test-setup.ts',
+      ],
+      // lcov paths relative to the repo root, as Codecov expects.
+      reporter: [
+        'text-summary',
+        'html',
+        ['lcov', { projectRoot: '../..' }] as ['lcov', { projectRoot: string }],
+      ],
+      // A few points under the current numbers: guards against regressions.
+      thresholds: { statements: 87, branches: 92, functions: 80, lines: 89 },
     },
   },
 }));

@@ -58,6 +58,7 @@ you run `next dev` directly.
 npx nx dev chat            # dev server
 npx nx build chat          # production build
 npx nx test chat           # unit + integration tests (Vitest, jsdom)
+npx nx test chat --coverage  # with coverage + thresholds (HTML in test-output/vitest/coverage)
 npx nx typecheck chat
 npx nx lint chat
 npx nx e2e chat-e2e        # Playwright against a production build + mock provider
