@@ -106,7 +106,7 @@ The full install, setup and component usage instructions are in the [`@owobilum/
 
 ## Status
 
-The library, Storybook, the chat app and CI and releases are in place. Deploying Storybook and the chat app to Vercel is still to come; live links will go here once they're up.
+The library, Storybook, the chat app, CI and releases are in place. Both apps deploy as one Vercel project ([`vercel.json`](vercel.json)): the chat app at `/` and Storybook at `/storybook/`. Live links will go here once the first deploy is up.
 
 ## License
 
