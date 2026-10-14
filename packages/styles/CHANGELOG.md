@@ -1,5 +1,11 @@
 # @owobilum/styles
 
+## 0.3.0
+
+### Minor Changes
+
+- [#5](https://github.com/Owobilum/beautech/pull/5) [`067c188`](https://github.com/Owobilum/beautech/commit/067c188a352059224495c5064fc3de34b6bed77a) Thanks [@Owobilum](https://github.com/Owobilum)! - Add a dark theme: follows `prefers-color-scheme` by default and can be forced with `data-theme="dark" | "light"` on `<html>`. Adds `code-background`/`code-foreground` tokens and a `dark:` custom variant.
+
 ## 0.2.0
 
 ### Minor Changes
