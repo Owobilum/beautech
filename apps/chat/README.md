@@ -1,5 +1,7 @@
 # Owobilum Chat
 
+[![codecov](https://codecov.io/github/Owobilum/beautech/graph/badge.svg?token=VWU53HG5Z9&flag=chat)](https://codecov.io/github/Owobilum/beautech?flags%5B0%5D=chat)
+
 An AI chat app built with Next.js (App Router) and TypeScript on top of the
 monorepo's component library, [`@owobilum/ui`](../../packages/ui/README.md).
 Responses stream from Google Gemini through a server-side Route Handler.

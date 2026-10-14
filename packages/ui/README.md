@@ -1,5 +1,7 @@
 # @owobilum/ui
 
+[![codecov](https://codecov.io/github/Owobilum/beautech/graph/badge.svg?token=VWU53HG5Z9&flag=ui)](https://codecov.io/github/Owobilum/beautech?flags%5B0%5D=ui)
+
 Accessible React components for the `@owobilum` design system, built on
 [Headless UI](https://headlessui.com) and styled with Tailwind CSS v4.
 
